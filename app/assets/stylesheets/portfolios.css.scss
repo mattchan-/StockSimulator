@@ -1,0 +1,40 @@
+// Place all the styles related to the Portfolios controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+table.quotes {
+  width: 100%;
+  border: 1px solid #BBB;
+  th, td {
+    padding: 2px;
+  }
+  th {
+    border-bottom: 1px solid #BBB;
+  }
+  td {
+    border-left: 1px solid #BBB;
+  }
+  .up {
+    color: green;
+  }
+  .down {
+    color: red;
+  }
+}
+
+div#addPosition {
+  input {
+    border: 1px solid #bbb;
+    width: 100%;
+    padding: 5px;
+    height: auto;
+    margin-bottom: 15px;
+  }
+  label {
+    width: 100%;
+  }
+}
+
+.btn {
+  margin-bottom: 15px;
+}

@@ -1,0 +1,9 @@
+<% provide(:title, 'All Portfolios') %>
+
+<div class = "row">
+  <% @portfolios.each do |p| %>
+    <div class="col-md-6 col-md-offset-3">
+      <b><%= link_to p.name, portfolio_path(p) %></b>
+    </div>
+  <% end %>
+</div>

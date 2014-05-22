@@ -1,0 +1,43 @@
+<% provide(:title, @portfolio.name) %>
+
+<div class="row">
+  <div class="col-md-12">
+    <h1 class="center"><%= @portfolio.name %></h1>
+    <hr>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-3">
+    <%= link_to "Add Position", "javascript:void(0)", id: "show_add_position", class: "btn btn-primary" %>
+    <div class="hidden" id="addPosition">
+      <%= form_for @new_position, url: positions_path(@portfolio) do |f| %>
+        <%= render "shared/error_messages", object: f.object %>
+        
+        <%= f.label :date_acquired %>
+        <%= f.text_field :date_acquired, id: 'datepicker' %>
+
+        <%= f.label :ticker %>
+        <%= f.text_field :ticker, id: 'check_ticker' %>
+
+        <%= f.label :quantity %>
+        <%= f.text_field :quantity %>
+
+        <%= f.label :cost_basis %>
+        <%= f.text_field :cost_basis %>
+
+        <%= f.submit "Add Position", class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  </div>
+  <div class="content col-md-6">
+    <table class="quotes">
+      <tr>
+        <th>Symbol</th>
+        <th>Price</th>
+        <th>Change</th>
+        <th>EPS (TTM)</th>
+      </tr>
+    </table>
+  </div>
+</div>
