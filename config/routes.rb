@@ -2,11 +2,11 @@ Rails.application.routes.draw do
   resources :portfolios, only: [:new, :create, :edit, :update, :index, :show, :destroy] do
   end
 
-  resources :positions, only: [:edit, :update, :destroy]
+  resources :positions, only: [:edit, :show, :update, :destroy]
 
   post '/portfolios/:portfolio_id/create_position' => 'positions#create', as: 'positions'
 
-  root 'static_pages#home'
+  root 'portfolios#index'
 
   get '/help', to: 'static_pages#help'
 

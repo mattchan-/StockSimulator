@@ -31,4 +31,10 @@ textarea {
 
 .field_with_errors {
   display: inline;
+  color: #D00;
+  font-size: 12px;
+}
+
+.field_with_errors .message {
+
 }

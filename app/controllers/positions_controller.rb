@@ -10,6 +10,11 @@ class PositionsController < ApplicationController
     end
   end
 
+  def show
+    @position = Position.find(params[:id])
+    gon.ticker = @position.ticker
+  end
+
   def edit
   end
 

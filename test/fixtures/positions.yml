@@ -2,13 +2,14 @@
 #
 # Table name: positions
 #
-#  id           :integer          not null, primary key
-#  portfolio_id :integer
-#  ticker       :string(255)
-#  quantity     :integer
-#  cost_basis   :float
-#  created_at   :datetime
-#  updated_at   :datetime
+#  id            :integer          not null, primary key
+#  portfolio_id  :integer
+#  ticker        :string(255)
+#  quantity      :integer
+#  cost_basis    :float
+#  created_at    :datetime
+#  updated_at    :datetime
+#  date_acquired :date
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
