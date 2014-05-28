@@ -1,0 +1,27 @@
+<% provide(:title, @position.ticker) %>
+
+<%= link_to @position.portfolio.name, portfolio_path(@position.portfolio) %>
+
+<div class="row">
+  <div class="col-md-3">
+    <%= @position.ticker %>
+  </div>
+  <div class="col-md-3">
+    Shares <%= @position.quantity %>
+  </div>
+  <div class="col-md-3">
+    <%= @position.cost_per_share %>
+  </div>
+  <div class="col-md-3">
+    <%= @position.date_acquired %>
+  </div>
+</div>
+
+<div class="row-2">
+  <table id="dividendHistory">
+    <tr>
+      <th>Date</th>
+      <th>Dividend</th>
+    </tr>
+  </table>  
+</div>

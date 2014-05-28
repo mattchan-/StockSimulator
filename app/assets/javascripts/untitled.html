@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name = "viewport" content = "width = device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=no;">
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script type="text/javascript" src="http://yui.yahooapis.com/2.9.0/build/yahoo/yahoo-min.js"></script> 
+</head>
+<body >
+<h>Stock Quotes AutoSuggest </h>
+</br></br>
+<input style="width:800px; height:20px;" id="check_ticker" />
+
+<script type="text/javascript">
+var YAHOO;
+
+YAHOO = {
+  Finance: {
+    SymbolSuggest: {}
+  }
+};
+
+$("#check_ticker").autocomplete({
+  source: function(request, response) {
+    $.ajax({
+      type: "GET",
+      url: "http://autoc.finance.yahoo.com/autoc",
+      dataType: "jsonp",  
+      jsonp: "callback",
+      jsonpCallback: "YAHOO.Finance.SymbolSuggest.ssCallback",
+      data: {
+        query: request.term
+      },
+      cache: true
+    });
+    YAHOO.Finance.SymbolSuggest.ssCallback = function(data) {
+      response($.map(data.ResultSet.Result, function(item) {
+        return {
+          label: item.name,
+          value: item.symbol
+        };
+      }));
+    };
+  },
+  minLength: 1,
+  select: function(event, ui) {
+    $("#check_ticker").val(ui.item.name);
+  }
+});
+
+</script>
+</body>
+</html>
