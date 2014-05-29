@@ -13,7 +13,7 @@
 #
 
 class Position < ActiveRecord::Base
-  validates :ticker, presence: true
+  validates :ticker, :date_acquired, presence: true
   validates :quantity, :cost_basis, :portfolio_id, presence: true, numericality: { greater_than_or_equal_to: 0 }
 
   belongs_to :portfolio
