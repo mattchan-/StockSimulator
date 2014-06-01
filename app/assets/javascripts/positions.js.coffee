@@ -3,12 +3,12 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 showDividendHistory = ->
-  if gon.ticker
+  if gon.symbol
     $.ajax
       type: "GET"
       url: 'https://query.yahooapis.com/v1/public/yql'
       data:
-        q: "use 'store://bg2cgClQyQC1c5gJE3UXUn' as yahoo.finance.dividendhistory; select * from yahoo.finance.dividendhistory where symbol = '" + gon.ticker + "' and startDate = '1962-01-01' and endDate = '2013-12-31'"
+        q: "use 'store://bg2cgClQyQC1c5gJE3UXUn' as yahoo.finance.dividendhistory; select * from yahoo.finance.dividendhistory where symbol = '" + gon.symbol + "' and startDate = '1962-01-01' and endDate = '2013-12-31'"
         format: "json"
         env: "store://datatables.org/alltableswithkeys"
       dataType: "jsonp"

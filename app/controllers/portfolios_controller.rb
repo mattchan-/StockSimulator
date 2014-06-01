@@ -25,8 +25,8 @@ class PortfoliosController < ApplicationController
 
   def show
     @portfolio = Portfolio.find(params[:id])
-    @new_position = @portfolio.positions.build
-    gon.tickers = @portfolio.positions.pluck(:ticker)
+    @position = @portfolio.positions.build
+    gon.symbols = @portfolio.positions.pluck(:symbol)
   end
 
   def destroy
@@ -45,6 +45,6 @@ class PortfoliosController < ApplicationController
 
   private
     def portfolio_params
-      params.require(:portfolio).permit(:name, position_attributes: [:portfolio_id, :ticker, :quantity, :cost_basis])
+      params.require(:portfolio).permit(:name, position_attributes: [:portfolio_id, :symbol, :shares, :cost_per_share, :date_acquired])
     end
 end

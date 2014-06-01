@@ -10,24 +10,7 @@
 <div class="row">
   <div class="col-md-3">
     <div id="addPosition">
-      <%= form_for @new_position, url: positions_path(@portfolio) do |f| %>
-        <%= render "shared/error_messages", object: f.object %>
-        
-        <%= f.label :date_acquired %>
-        <%= f.text_field :date_acquired, id: 'datepicker' %>
-
-        <%= f.label :ticker %>
-        <%= f.text_field :ticker, id: 'check_ticker' %>
-        <div class="field_with_errors message" id="ticker_error_message"></div>
-
-        <%= f.label :quantity %>
-        <%= f.text_field :quantity %>
-
-        <%= f.label :cost_basis %>
-        <%= f.text_field :cost_basis %>
-
-        <%= f.submit "Add Position", class: "btn btn-primary" %>
-      <% end %>
+      <%= render 'positions/new' %>
     </div>
   </div>
   <div class="content col-md-6">
@@ -42,7 +25,7 @@
       <% @portfolio.positions.each_with_index do |p, index| %>
         <% break if index == @portfolio.positions.count %>
         <tr>
-          <td id="symbol-<%= index %>"><%= link_to p.ticker, position_path(p.id.to_i) %></td>
+          <td id="symbol-<%= index %>"><%= link_to p.symbol, position_path(p.id.to_i) %></td>
           <td id="name-<%= index %>"></td>
           <td id="price-<%= index %>"></td>
           <td id="change-<%= index %>"></td>
@@ -60,7 +43,7 @@ var YAHOO = {
   }
 };
 
-$("#check_ticker").autocomplete({
+$("#check_symbol").autocomplete({
   source: function(request, response) {
     $.ajax({
       type: "GET",
@@ -84,7 +67,7 @@ $("#check_ticker").autocomplete({
   },
   minLength: 1,
   select: function(event, ui) {
-    $("#check_ticker").val(ui.item.symbol);
+    $("#check_symbol").val(ui.item.symbol);
   }
 });
 

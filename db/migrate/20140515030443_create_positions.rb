@@ -2,9 +2,9 @@ class CreatePositions < ActiveRecord::Migration
   def change
     create_table :positions do |t|
       t.integer :portfolio_id
-      t.string :ticker
-      t.integer :quantity
-      t.float :cost_basis
+      t.string :symbol
+      t.integer :shares
+      t.float :cost_per_share
 
       t.timestamps
     end

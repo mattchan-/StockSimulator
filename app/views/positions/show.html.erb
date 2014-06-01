@@ -1,16 +1,16 @@
-<% provide(:title, @position.ticker) %>
+<% provide(:title, @position.symbol) %>
 
 <%= link_to @position.portfolio.name, portfolio_path(@position.portfolio) %>
 
 <div class="row">
   <div class="col-md-3">
-    <%= @position.ticker %>
+    <%= @position.symbol %>
   </div>
   <div class="col-md-3">
-    Shares <%= @position.quantity %>
+    Shares <%= @position.shares %>
   </div>
   <div class="col-md-3">
-    <%= @position.cost_per_share %>
+    <%= @position.total_cost %>
   </div>
   <div class="col-md-3">
     <%= @position.date_acquired %>

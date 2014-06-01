@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140521002948) do
+ActiveRecord::Schema.define(version: 20140529233821) do
+
+  create_table "companies", force: true do |t|
+    t.string   "name"
+    t.string   "symbol"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "companies", ["symbol"], name: "index_companies_on_symbol", unique: true
 
   create_table "portfolios", force: true do |t|
     t.string   "name"
@@ -21,9 +30,9 @@ ActiveRecord::Schema.define(version: 20140521002948) do
 
   create_table "positions", force: true do |t|
     t.integer  "portfolio_id"
-    t.string   "ticker"
-    t.integer  "quantity"
-    t.float    "cost_basis"
+    t.string   "symbol"
+    t.integer  "shares"
+    t.float    "cost_per_share"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.date     "date_acquired"

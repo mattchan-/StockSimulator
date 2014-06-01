@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'companies/index'
+
   resources :portfolios, only: [:new, :create, :edit, :update, :index, :show, :destroy] do
   end
 

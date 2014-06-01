@@ -38,3 +38,15 @@ div#addPosition {
 .btn {
   margin-bottom: 15px;
 }
+
+div.portfolioIndex {
+  border: 1px solid #eee;
+  border-top: none;
+  padding: 15px 10px;
+  &:first-of-type {
+    border: 1px solid #eee;    
+  }
+  &:nth-child(even) {
+    background: #fafafa;
+  }
+}
