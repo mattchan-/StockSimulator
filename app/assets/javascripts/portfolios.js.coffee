@@ -4,11 +4,24 @@
 
 YAHOO = Finance: SymbolSuggest: {}
 
+$.ajaxSetup beforeSend: (xhr) ->
+  xhr.setRequestHeader "Accept", "text/javascript"
+  return
+
 $ ->
   $('#position_date_acquired').datepicker(
     autoclose: true
     orientation: 'top left'
   )
+
+$.fn.addPosition = ->
+  @submit ->
+    $.post @action, $(this).serialize(), null, "script"
+    false
+  return this
+
+$ ->
+  $('#new_position').addPosition()
 
 $ ->
   $('#check_symbol').blur ->

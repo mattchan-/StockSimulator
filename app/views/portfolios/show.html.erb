@@ -27,8 +27,8 @@
         <th>Total Profit from Lot</th>
         <th>Total Profit from Lot (%)</th>
       </tr>
-      <% @portfolio.positions.each_with_index do |p, index| %>
-        <% break if index == @portfolio.positions.count %>
+      <% @positions.each_with_index do |p, index| %>
+        <% break if index == @positions.count %>
         <tr class="records">
           <td><%= p.date_acquired.strftime("%m/%d/%Y") %></td>
           <td><%= link_to p.symbol, position_path(p.id.to_i) %></td>

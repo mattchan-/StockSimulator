@@ -10,9 +10,10 @@ class PositionsController < ApplicationController
     @position = @portfolio.positions.build(position_params)
     if @position.save
       flash[:success] = "Position Saved"
-      redirect_to portfolio_path(@portfolio)
-    else
-      render "new"
+    end
+    respond_to do |format|
+      format.html { redirect_to portfolio_path @portfolio }
+      format.js
     end
   end
 
