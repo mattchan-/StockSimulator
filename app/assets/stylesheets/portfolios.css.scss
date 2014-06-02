@@ -5,6 +5,7 @@
 table#quotes {
   width: 100%;
   border: 1px solid #BBB;
+  margin-bottom: 15px;
   th, td {
     padding: 2px;
   }
@@ -19,7 +20,10 @@ table#quotes {
   }
   .down {
     color: red;
-  } 
+  }
+  .records > td {
+    text-align: center;
+  }
 }
 
 div#addPosition {

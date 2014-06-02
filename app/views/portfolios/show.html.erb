@@ -6,69 +6,53 @@
     <hr>
   </div>
 </div>
-
+<div class="datepicker"></div>
 <div class="row">
-  <div class="col-md-3">
-    <div id="addPosition">
-      <%= render 'positions/new' %>
-    </div>
-  </div>
-  <div class="content col-md-6">
+  <div class="content col-md-12">
     <table id="quotes">
       <tr>
+        <th>Date Acquired</th>
         <th>Symbol</th>
         <th>Company</th>
-        <th>Price</th>
-        <th>Change</th>
-        <th>EPS (TTM)</th>
+
+        <th>Shares</th>
+        <th>Cost Per Share</th>
+        <th>Total Cost</th>
+
+        <th>Current Price Per Share</th>
+        <th>Current Market Value</th>
+        <th>Unrealized Gains and Losses</th>
+
+        <th>Dividends Received on Lot</th>
+        <th>Total Profit from Lot</th>
+        <th>Total Profit from Lot (%)</th>
       </tr>
       <% @portfolio.positions.each_with_index do |p, index| %>
         <% break if index == @portfolio.positions.count %>
-        <tr>
-          <td id="symbol-<%= index %>"><%= link_to p.symbol, position_path(p.id.to_i) %></td>
-          <td id="name-<%= index %>"></td>
-          <td id="price-<%= index %>"></td>
-          <td id="change-<%= index %>"></td>
-          <td id="EPS-<%= index %>"></td>
+        <tr class="records">
+          <td><%= p.date_acquired.strftime("%m/%d/%Y") %></td>
+          <td><%= link_to p.symbol, position_path(p.id.to_i) %></td>
+          <td><%= Company.find_by_symbol(p.symbol).name %></td>
+
+          <td><%= p.shares %></td>
+          <td><%= number_to_currency p.cost_per_share %></td>
+          <td><%= number_to_currency tc = p.total_cost %></td>
+          
+          <td><%= number_to_currency @data[p.symbol][:price].to_f %></td>
+          <td><%= number_to_currency mv = @data[p.symbol][:price].to_f * p.shares %></td>
+          <td class="<%= updown(mv - tc) %>"><%= number_to_currency mv - tc %></td>
+
+          <td><%= number_to_currency cum_div = p.get_cumulative_dividends %></td>
+          <td class="<%= updown(profit = cum_div + mv - tc) %>"><%= number_to_currency profit %></td>
+          <td class="<%= updown(profit) %>"><%= number_to_percentage profit / tc * 100, precision: 2 %></td>
         </tr>
       <% end %>
     </table>
   </div>
 </div>
 
-<script type="text/javascript">
-var YAHOO = {
-  Finance: {
-    SymbolSuggest: {}
-  }
-};
-
-$("#check_symbol").autocomplete({
-  source: function(request, response) {
-    $.ajax({
-      type: "GET",
-      url: "http://autoc.finance.yahoo.com/autoc",
-      dataType: "jsonp",  
-      jsonp: "callback",
-      jsonpCallback: "YAHOO.Finance.SymbolSuggest.ssCallback",
-      data: {
-        query: request.term
-      },
-      cache: true
-    });
-    YAHOO.Finance.SymbolSuggest.ssCallback = function(data) {
-      response($.map(data.ResultSet.Result, function(item) {
-        return {
-          label: item.symbol + " " + item.name,
-          value: item.symbol
-        };
-      }));
-    };
-  },
-  minLength: 1,
-  select: function(event, ui) {
-    $("#check_symbol").val(ui.item.symbol);
-  }
-});
-
-</script>
+<div class="row">
+  <div class="col-md-3" id="addPosition">
+      <%= render 'positions/new' %>
+  </div>
+</div>

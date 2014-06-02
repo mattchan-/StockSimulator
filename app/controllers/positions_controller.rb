@@ -1,19 +1,26 @@
 class PositionsController < ApplicationController
+  def new
+    @portfolio = Portfolio.find(params[:portfolio_id])
+    @position = @portfolio.positions.build
+    render ""
+  end
+
   def create
     @portfolio = Portfolio.find(params[:portfolio_id])
     @position = @portfolio.positions.build(position_params)
-    @position.date_acquired = Date.strptime(params[:position][:date_acquired], '%m/%d/%Y')
     if @position.save
       flash[:success] = "Position Saved"
       redirect_to portfolio_path(@portfolio)
     else
-      render template: "portfolios/show"
+      render "new"
     end
   end
 
   def show
     @position = Position.find(params[:id])
     gon.symbol = @position.symbol
+    gon.date_acquired = @position.date_acquired.strftime("%Y-%m-%d")
+    gon.today = Date.today.strftime("%Y-%m-%d")
   end
 
   def edit

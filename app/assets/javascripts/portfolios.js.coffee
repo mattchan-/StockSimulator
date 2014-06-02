@@ -4,38 +4,8 @@
 
 YAHOO = Finance: SymbolSuggest: {}
 
-
-showPositions = ->
-  yql_url = "https://query.yahooapis.com/v1/public/yql"
-  query = "SELECT * FROM yahoo.finance.quotes WHERE symbol in ('"
-  if gon.symbols
-    generate_query = (rest..., last) ->
-      for r in rest
-        query += r + "', '"
-      if last?
-        query += last + "')"
-    generate_query.apply(null, gon.symbols)
-    $.ajax
-      type: "GET"
-      url: yql_url
-      data:
-        q: query
-        format: "json"
-        env: "store://datatables.org/alltableswithkeys"
-      dataType: "jsonp"
-      success: (data) ->
-        console.log data
-        if !data.error
-          $.each gon.symbols, (index, symbol) ->
-            quote = data.query.results.quote
-            quote = [quote]  unless $.isArray(quote)
-            alert quote[index]["symbol"]
-          
-  else
-    $("table#quotes").replaceWith "<div>An error has occurred.</div>"
-
 $ ->
-  $('#datepicker').datepicker(
+  $('#position_date_acquired').datepicker(
     autoclose: true
     orientation: 'top left'
   )
@@ -63,4 +33,3 @@ $ ->
             $('#symbol_error_message').text("Invalid symbol")
             return
   
-$('.portfolios.show').ready showPositions

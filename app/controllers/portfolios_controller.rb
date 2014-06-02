@@ -25,8 +25,9 @@ class PortfoliosController < ApplicationController
 
   def show
     @portfolio = Portfolio.find(params[:id])
-    @position = @portfolio.positions.build
-    gon.symbols = @portfolio.positions.pluck(:symbol)
+    @positions = @portfolio.positions.order(date_acquired: :asc)
+    @position = Position.new
+    @data = YahooFinance.get_data @portfolio.positions.pluck(:symbol) if !@portfolio.positions.pluck(:symbol).empty?
   end
 
   def destroy

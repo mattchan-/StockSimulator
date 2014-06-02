@@ -1,0 +1,55 @@
+<%= form_for @position, url: positions_path(@portfolio) do |f| %>
+  <%= render "shared/error_messages", object: f.object %>
+  
+  <%= f.label :date_acquired %>
+  <%= f.text_field :date_acquired %>
+
+  <%= f.label :symbol %>
+  <%= f.text_field :symbol, id: 'check_symbol' %>
+  <div class="field_with_errors message" id="symbol_error_message"></div>
+
+  <%= f.label :shares %>
+  <%= f.text_field :shares %>
+
+  <%= f.label :cost_per_share %>
+  <%= f.text_field :cost_per_share %><br/>
+
+  <%= f.submit "Add Position", class: "btn btn-primary" %>
+<% end %>
+
+<script type="text/javascript">
+var YAHOO = {
+  Finance: {
+    SymbolSuggest: {}
+  }
+};
+
+$("#check_symbol").autocomplete({
+  source: function(request, response) {
+    $.ajax({
+      type: "GET",
+      url: "http://autoc.finance.yahoo.com/autoc",
+      dataType: "jsonp",  
+      jsonp: "callback",
+      jsonpCallback: "YAHOO.Finance.SymbolSuggest.ssCallback",
+      data: {
+        query: request.term
+      },
+      cache: true
+    });
+    YAHOO.Finance.SymbolSuggest.ssCallback = function(data) {
+      response($.map(data.ResultSet.Result, function(item) {
+        return {
+          label: item.symbol + " " + item.name,
+          value: item.symbol
+        };
+      }));
+    };
+  },
+  minLength: 1,
+  select: function(event, ui) {
+    $("#check_symbol").val(ui.item.symbol);
+  }
+});
+
+</script>
