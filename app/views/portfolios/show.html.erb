@@ -38,13 +38,13 @@
           <td><%= number_to_currency p.cost_per_share %></td>
           <td><%= number_to_currency tc = p.total_cost %></td>
           
-          <td><%= number_to_currency @data[p.symbol][:price].to_f %></td>
-          <td><%= number_to_currency mv = @data[p.symbol][:price].to_f * p.shares %></td>
-          <td class="<%= updown(mv - tc) %>"><%= number_to_currency mv - tc %></td>
+          <td><%= number_to_currency p.price %></td>
+          <td><%= number_to_currency p.total_market_value %></td>
+          <td class="<%= updown(p.unrealized_gain) %>"><%= number_to_currency p.unrealized_gain %></td>
 
-          <td><%= number_to_currency cum_div = p.get_cumulative_dividends %></td>
-          <td class="<%= updown(profit = cum_div + mv - tc) %>"><%= number_to_currency profit %></td>
-          <td class="<%= updown(profit) %>"><%= number_to_percentage profit / tc * 100, precision: 2 %></td>
+          <td><%= number_to_currency p.cumulative_dividends %></td>
+          <td class="<%= updown(p.total_profit) %>"><%= number_to_currency p.total_profit %></td>
+          <td class="<%= updown(p.total_profit) %>"><%= number_to_percentage p.total_profit / tc * 100, precision: 2 %></td>
         </tr>
       <% end %>
     </table>

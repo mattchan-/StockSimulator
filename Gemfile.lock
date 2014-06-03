@@ -58,6 +58,9 @@ GEM
       json (~> 1.8)
       multi_xml (>= 0.5.2)
     i18n (0.6.9)
+    i18n_alchemy (0.2.1)
+      activesupport (>= 3.2.0, < 4.2)
+      i18n (~> 0.6)
     jbuilder (2.0.7)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
@@ -144,6 +147,7 @@ DEPENDENCIES
   execjs
   gon
   httparty
+  i18n_alchemy
   jbuilder (~> 2.0)
   jquery-rails
   jquery-turbolinks

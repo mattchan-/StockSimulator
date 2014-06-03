@@ -7,7 +7,8 @@ class PositionsController < ApplicationController
 
   def create
     @portfolio = Portfolio.find(params[:portfolio_id])
-    @position = @portfolio.positions.build(position_params)
+    @position = @portfolio.positions.build.localized(position_params)
+
     if @position.save
       flash[:success] = "Position Saved"
     end

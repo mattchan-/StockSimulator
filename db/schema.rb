@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140529233821) do
+ActiveRecord::Schema.define(version: 20140603072344) do
 
   create_table "companies", force: true do |t|
     t.string   "name"
@@ -36,6 +36,8 @@ ActiveRecord::Schema.define(version: 20140529233821) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.date     "date_acquired"
+    t.float    "price"
+    t.float    "cumulative_dividends"
   end
 
   add_index "positions", ["portfolio_id"], name: "index_positions_on_portfolio_id"

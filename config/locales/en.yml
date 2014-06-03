@@ -22,7 +22,7 @@
 en:
   date:
     formats:
-      default: "%d/%m/%Y"
+      default: "%m/%d/%Y"
   time:
     formats:
-      default: "%d/%m/%Y %H:%M"
+      default: "%m/%d/%Y %H:%M"
