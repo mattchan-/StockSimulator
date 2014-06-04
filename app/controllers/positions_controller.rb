@@ -8,9 +8,8 @@ class PositionsController < ApplicationController
   def create
     @portfolio = Portfolio.find(params[:portfolio_id])
     @position = @portfolio.positions.build.localized(position_params)
-
     if @position.save
-      flash[:success] = "Position Saved"
+      flash.now[:success] = "Position Saved"
     end
     respond_to do |format|
       format.html { redirect_to portfolio_path @portfolio }

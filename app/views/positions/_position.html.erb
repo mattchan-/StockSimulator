@@ -1,0 +1,17 @@
+<tr class="records">
+  <td><%= position.localized.date_acquired %></td>
+  <td><%= link_to position.symbol, position_path(position.id.to_i) %></td>
+  <td><%= Company.find_by_symbol(position.symbol).name %></td>
+
+  <td><%= position.shares %></td>
+  <td><%= number_to_currency position.cost_per_share %></td>
+  <td><%= number_to_currency tc = position.total_cost %></td>
+  
+  <td><%= number_to_currency position.price %></td>
+  <td><%= number_to_currency position.total_market_value %></td>
+  <td class="<%= updown(position.unrealized_gain) %>"><%= number_to_currency position.unrealized_gain %></td>
+
+  <td class="<%= updown(position.cumulative_dividends) %>"><%= number_to_currency position.cumulative_dividends %></td>
+  <td class="<%= updown(position.total_profit) %>"><%= number_to_currency position.total_profit %></td>
+  <td class="<%= updown(position.total_profit) %>"><%= number_to_percentage position.total_profit / tc * 100, precision: 2 %></td>
+</tr>

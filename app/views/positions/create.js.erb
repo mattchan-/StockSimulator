@@ -1,2 +1,3 @@
-alert("success!");
+$("#new_position").before('<div class="alert alert-success"><%= escape_javascript( flash[:success] ) %></div>');
+$("#quotes").append("<%= escape_javascript(render(partial: @position)) %>");
 $("#new_position")[0].reset();
