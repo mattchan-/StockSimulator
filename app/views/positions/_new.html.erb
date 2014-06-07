@@ -1,21 +1,25 @@
-<%= form_for @position, url: positions_path(@portfolio), remote: true do |f| %>
-  <%= render "shared/error_messages", object: f.object %>
-  
-  <%= f.label :date_acquired %>
-  <%= f.text_field :date_acquired %>
-
-  <%= f.label :symbol %>
-  <%= f.text_field :symbol, id: 'check_symbol' %>
-  <div class="field_with_errors message" id="symbol_error_message"></div>
-
-  <%= f.label :shares %>
-  <%= f.text_field :shares %>
-
-  <%= f.label :cost_per_share %>
-  <%= f.text_field :cost_per_share %><br/>
-
-  <%= f.submit "Add Position", class: "btn btn-primary" %>
-<% end %>
+<div class="row">
+  <div class="col-md-12">
+    <%= form_for @position, url: positions_path(@portfolio), remote: true do |f| %>
+      <%= render "shared/error_messages", object: f.object %>
+      <table id="addPosition">
+        <tr>
+          <th><%= f.label :date_acquired %></th>
+          <th><%= f.label :symbol %></th>
+          <th><%= f.label :shares %></th>
+          <th><%= f.label :cost_per_share %></th>
+        </tr>
+        <tr>
+          <td><%= f.text_field :date_acquired %></td>
+          <td><%= f.text_field :symbol, id: 'check_symbol' %></td>
+          <td><%= f.text_field :shares %></td>
+          <td><%= f.text_field :cost_per_share %></td>
+          <td><%= f.submit "Add Position", class: "btn btn-primary" %></td>
+        </tr>
+      </table>
+    <% end %>
+  </div>
+</div>
 
 <script type="text/javascript">
 var YAHOO = {

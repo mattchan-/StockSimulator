@@ -5,13 +5,13 @@
 
   <td><%= position.shares %></td>
   <td><%= number_to_currency position.cost_per_share %></td>
-  <td><%= number_to_currency tc = position.total_cost %></td>
+  <td><%= number_to_currency position.position_cost %></td>
   
   <td><%= number_to_currency position.price %></td>
-  <td><%= number_to_currency position.total_market_value %></td>
-  <td class="<%= updown(position.unrealized_gain) %>"><%= number_to_currency position.unrealized_gain %></td>
+  <td><%= number_to_currency position.market_value %></td>
+  <td class="<%= updown(position.unrealized_gains) %>"><%= number_to_currency position.unrealized_gains %></td>
 
   <td class="<%= updown(position.cumulative_dividends) %>"><%= number_to_currency position.cumulative_dividends %></td>
-  <td class="<%= updown(position.total_profit) %>"><%= number_to_currency position.total_profit %></td>
-  <td class="<%= updown(position.total_profit) %>"><%= number_to_percentage position.total_profit / tc * 100, precision: 2 %></td>
+  <td class="<%= updown(position.profit) %>"><%= number_to_currency position.profit %></td>
+  <td class="<%= updown(position.profit) %>"><%= number_to_percentage position.profit / position.position_cost * 100, precision: 2 %></td>
 </tr>

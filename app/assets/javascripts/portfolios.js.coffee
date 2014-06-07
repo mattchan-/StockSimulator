@@ -11,7 +11,6 @@ $.ajaxSetup beforeSend: (xhr) ->
 $ ->
   $('#position_date_acquired').datepicker(
     autoclose: true
-    orientation: 'top left'
   )
 
 $.fn.addPosition = ->

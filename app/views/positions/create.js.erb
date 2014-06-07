@@ -1,3 +1,10 @@
-$("#new_position").before('<div class="alert alert-success"><%= escape_javascript( flash[:success] ) %></div>');
-$("#quotes").append("<%= escape_javascript(render(partial: @position)) %>");
-$("#new_position")[0].reset();
+$('#error_explanation').remove();
+$('#flash').remove();
+<% if @position.errors.any? %>
+  $('<%= escape_javascript( render "shared/error_messages", object: @position )%>').prependTo('#new_position').hide().fadeIn('fast');
+<% else %>
+  $('#new_position').before('<div class="alert alert-success" id="flash"><%= escape_javascript( flash[:success] ) %></div>');
+  $('#total').before("<%= escape_javascript(render(partial: @position)) %>");
+  $('#total').replaceWith("<%= escape_javascript(render(partial: 'portfolios/total')) %>")
+  $("#new_position")[0].reset();
+<% end %>

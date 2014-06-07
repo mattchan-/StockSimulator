@@ -1,0 +1,17 @@
+<tr id="total">
+  <td></td>
+  <td></td>
+  <td></td>
+
+  <td></td>
+  <td></td>
+  <td><%= number_to_currency @portfolio.total_cost %></td>
+
+  <td></td>
+  <td><%= number_to_currency @portfolio.total_market_value %></td>
+  <td class="<%= updown(@portfolio.total_unrealized_gains)%>"><%= number_to_currency @portfolio.total_unrealized_gains %></td>
+
+  <td class="<%= updown(@portfolio.total_cumulative_dividends) %>"><%= number_to_currency @portfolio.total_cumulative_dividends %></td>
+  <td class="<%= updown(@portfolio.total_profit) %>"><%= number_to_currency @portfolio.total_profit %></td>
+  <td class="<%= updown(@portfolio.total_profit) %>"><%= number_to_percentage @portfolio.total_profit / @portfolio.total_cost * 100, precision: 2 %></td>
+</tr>

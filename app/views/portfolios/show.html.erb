@@ -28,12 +28,9 @@
         <th>Total Profit from Lot (%)</th>
       </tr>
       <%= render @positions %>
+      <%= render 'total' %>
     </table>
   </div>
 </div>
 
-<div class="row">
-  <div class="col-md-3" id="addPosition">
-      <%= render 'positions/new' %>
-  </div>
-</div>
+<%= render 'positions/new' %>

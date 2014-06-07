@@ -68,20 +68,20 @@ class Position < ActiveRecord::Base
     t.between?(market_open, market_close)
   end
 
-  def total_cost
+  def position_cost
     self[:cost_per_share] * self[:shares]
   end
 
-  def total_market_value
+  def market_value
     self[:price] * self[:shares]
   end
 
-  def unrealized_gain
-    total_market_value - total_cost
+  def unrealized_gains
+    return market_value - position_cost
   end
 
-  def total_profit
-    unrealized_gain + self[:cumulative_dividends]
+  def profit
+    unrealized_gains + self[:cumulative_dividends]
   end
 
   private
