@@ -2,6 +2,10 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+h1#name {
+  padding: 5px;
+}
+
 table#quotes {
   width: 100%;
   border: 1px solid #BBB;
@@ -62,5 +66,11 @@ div.portfolioIndex {
   }
   &:nth-child(even) {
     background: #fafafa;
+  }
+}
+
+form.edit_portfolio {
+  input[type=submit] {
+    display: none;
   }
 }

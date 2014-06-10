@@ -20,7 +20,7 @@ class Position < ActiveRecord::Base
 
   validates :symbol, presence: true, inclusion: { in: Company.all.pluck(:symbol), message: " must be a valid ticker" }
   validates :date_acquired, presence: true
-  validates :shares, :cost_per_share, :portfolio_id, presence: true, numericality: { greater_than_or_equal_to: 0 }
+  validates :shares, :cost_per_share, :portfolio_id, presence: true, numericality: { greater_than: 0 }
 
   belongs_to :portfolio
 
@@ -82,6 +82,10 @@ class Position < ActiveRecord::Base
 
   def profit
     unrealized_gains + self[:cumulative_dividends]
+  end
+
+  def profit_percentage
+    profit / position_cost * 100
   end
 
   private

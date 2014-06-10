@@ -49,4 +49,12 @@ class Portfolio < ActiveRecord::Base
     end
     return total_profit
   end
+
+  def total_profit_percentage
+    if total_cost != 0
+      total_profit / total_cost * 100
+    else
+      0
+    end
+  end
 end

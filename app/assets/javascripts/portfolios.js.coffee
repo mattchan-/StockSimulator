@@ -19,29 +19,26 @@ $.fn.addPosition = ->
     false
   return this
 
+toggleSpinner = -> $('#spinner').toggle()
+
 $ ->
   $('#new_position').addPosition()
 
+$.fn.editPortfolio = ->
+  @submit ->
+    $.post @action, $(this).serialize(), null, "script"
+    false
+  return this
+
 $ ->
-  $('#check_symbol').blur ->
-    if !$(this).val()
-      $('#symbol_error_message').text("")
-    else
-      yql_url = "https://query.yahooapis.com/v1/public/yql"
-      query = "SELECT * FROM yahoo.finance.quotes WHERE symbol in ('"
-      query += $('#check_symbol').val() + "')"
-      $.ajax
-        type: "GET"
-        url: yql_url
-        dataType: "jsonp"
-        data:
-          q: query
-          format: "json"
-          env: "store://datatables.org/alltableswithkeys"
-        success: (data) ->
-          if data.query.results.quote.ErrorIndicationreturnedforsymbolchangedinvalid == null
-            $('#symbol_error_message').text("")
-          else
-            $('#symbol_error_message').text("Invalid symbol")
-            return
-  
+  $('#name').click ->
+    @.contentEditable = true
+
+  $('#name').blur ->
+    $('#portfolio_name').val($('#name').text())
+    $('form.edit_portfolio').submit()
+
+$ ->
+  $(document)
+    .on('ajaxSend', toggleSpinner)
+    .on('ajaxComplete', toggleSpinner)

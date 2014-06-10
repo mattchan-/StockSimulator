@@ -5,6 +5,6 @@ $('#flash').remove();
 <% else %>
   $('#new_position').before('<div class="alert alert-success" id="flash"><%= escape_javascript( flash[:success] ) %></div>');
   $('#total').before("<%= escape_javascript(render(partial: @position)) %>");
-  $('#total').replaceWith("<%= escape_javascript(render(partial: 'portfolios/total')) %>")
+  $('#total').replaceWith("<%= escape_javascript(render(partial: 'portfolios/total')) %>");
   $("#new_position")[0].reset();
 <% end %>

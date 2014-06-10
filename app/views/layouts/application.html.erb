@@ -16,6 +16,7 @@
       <% end %>
       <%= yield %>
       <%= debug(params) if Rails.env.development? %>
+      <%= image_tag 'spinner.gif', id: 'spinner' %>
     </div>
   </body>
 </html>

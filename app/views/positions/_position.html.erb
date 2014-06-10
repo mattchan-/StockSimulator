@@ -13,5 +13,5 @@
 
   <td class="<%= updown(position.cumulative_dividends) %>"><%= number_to_currency position.cumulative_dividends %></td>
   <td class="<%= updown(position.profit) %>"><%= number_to_currency position.profit %></td>
-  <td class="<%= updown(position.profit) %>"><%= number_to_percentage position.profit / position.position_cost * 100, precision: 2 %></td>
+  <td class="<%= updown(position.profit) %>"><%= number_to_percentage position.profit_percentage, precision: 2 %></td>
 </tr>

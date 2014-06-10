@@ -13,5 +13,5 @@
 
   <td class="<%= updown(@portfolio.total_cumulative_dividends) %>"><%= number_to_currency @portfolio.total_cumulative_dividends %></td>
   <td class="<%= updown(@portfolio.total_profit) %>"><%= number_to_currency @portfolio.total_profit %></td>
-  <td class="<%= updown(@portfolio.total_profit) %>"><%= number_to_percentage @portfolio.total_profit / @portfolio.total_cost * 100, precision: 2 %></td>
+  <td class="<%= updown(@portfolio.total_profit) %>"><%= number_to_percentage @portfolio.total_profit_percentage, precision: 2 %></td>
 </tr>

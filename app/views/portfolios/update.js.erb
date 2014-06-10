@@ -1,0 +1,7 @@
+$('#error_explanation').remove();
+$('#flash').remove();
+<% if @portfolio.errors.any? %>
+  $('#name').parent().before('<%= escape_javascript( render "shared/error_messages", object: @portfolio )%>');
+<% else %>
+  $('#name').parent().before('<div class="alert alert-success" id="flash"><%= escape_javascript( flash[:success] ) %></div>');
+<% end %>
