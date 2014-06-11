@@ -18,7 +18,9 @@ class Position < ActiveRecord::Base
   before_create :upcase_symbol
   after_create :update_price, :update_cumulative_dividends
 
-  validates :symbol, presence: true, inclusion: { in: Company.all.pluck(:symbol), message: " must be a valid ticker" }
+  validate :check_valid_symbol, on: :create
+
+  validates :symbol, presence: true
   validates :date_acquired, presence: true
   validates :shares, :cost_per_share, :portfolio_id, presence: true, numericality: { greater_than: 0 }
 
@@ -33,8 +35,6 @@ class Position < ActiveRecord::Base
   base_uri 'query.yahooapis.com'
   default_params format: "json", env: "store://datatables.org/alltableswithkeys", callback: ''
   format :json
-
-  debug_output $stderr
 
   def update_cumulative_dividends
     query = "use 'store://bg2cgClQyQC1c5gJE3UXUn' as yahoo.finance.dividendhistory; select * from yahoo.finance.dividendhistory where symbol = '" + self[:symbol] + "' and startDate = '" + self[:date_acquired].strftime("%Y-%m-%d") + "' and endDate = '" + Date.today.strftime("%Y-%m-%d") + "'"
@@ -86,6 +86,10 @@ class Position < ActiveRecord::Base
 
   def profit_percentage
     profit / position_cost * 100
+  end
+
+  def check_valid_symbol
+    errors.add(:symbol, "must be a valid Yahoo Finance ticker") unless Company.check(self[:symbol])
   end
 
   private

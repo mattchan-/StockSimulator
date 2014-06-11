@@ -2,7 +2,6 @@ class PositionsController < ApplicationController
   def new
     @portfolio = Portfolio.find(params[:portfolio_id])
     @position = @portfolio.positions.build
-    render ""
   end
 
   def create
@@ -25,9 +24,17 @@ class PositionsController < ApplicationController
   end
 
   def edit
+    @position = Position.find(params[:id])
   end
 
   def update
+    @position = Position.find(params[:id])
+    if @position.update_attributes(position_params)
+      flash.now[:success] = "Position Updated"
+      redirect_to @position.portfolio
+    else
+      render 'edit'
+    end
   end
 
   def destroy

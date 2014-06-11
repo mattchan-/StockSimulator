@@ -7,7 +7,7 @@ class PortfoliosController < ApplicationController
     @portfolio = Portfolio.new(portfolio_params)
     if @portfolio.save
       flash[:success] = "Portfolio Saved"
-      redirect_to root_path
+      redirect_to @portfolio
     else
       render 'new'
     end
@@ -38,17 +38,10 @@ class PortfoliosController < ApplicationController
   end
 
   def destroy
-  end
-
-  def create_position
     @portfolio = Portfolio.find(params[:id])
-    @position = @portfolio.positions.build(portfolio_params)
-    if @position.save
-      flash[:success] = "Position Saved"
-      redirect_to portfolio_path(@portfolio)
-    else
-      redirect_to :back
-    end
+    flash[:success] = "Portfolio '" + @portfolio.name + "' deleted."
+    @portfolio.destroy
+    redirect_to root_path
   end
 
   private

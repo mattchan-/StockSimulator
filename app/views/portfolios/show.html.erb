@@ -32,7 +32,7 @@
   </div>
 </div>
 
-<%= render 'positions/new' %>
+<%= render partial: 'positions/form', locals: { position: @position, url: positions_path(@portfolio), remote: true } %>
 
 <%= form_for @portfolio, remote: true do |f| %>
   <%= f.hidden_field :name %>

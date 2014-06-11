@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="col-md-12">
+    <%= form_for position, url: url, remote: remote do |f| %>
+      <%= render "shared/error_messages", object: f.object %>
+      <table id="form">
+        <tr>
+          <th><%= f.label :date_acquired %></th>
+          <th><%= f.label :symbol %></th>
+          <th><%= f.label :shares %></th>
+          <th><%= f.label :cost_per_share %></th>
+        </tr>
+        <tr>
+          <td><%= f.text_field :date_acquired %></td>
+          <td><%= f.text_field :symbol, id: 'check_symbol' %></td>
+          <td><%= f.text_field :shares %></td>
+          <td><%= f.text_field :cost_per_share %></td>
+          <td><%= f.submit "Add Position", class: "btn btn-primary" %></td>
+        </tr>
+      </table>
+    <% end %>
+  </div>
+</div>
+

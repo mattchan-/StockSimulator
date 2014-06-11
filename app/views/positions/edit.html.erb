@@ -1,2 +1,9 @@
-<h1>Positions#edit</h1>
-<p>Find me in app/views/positions/edit.html.erb</p>
+<% provide(:title, 'Edit Position') %>
+
+<div class = "row">
+  <div class="col-md-6 col-md-offset-3">
+    <h1>Edit Position</h1>
+    <hr>
+    <%= render partial: 'form', locals: { position: @position, url: position_path, remote: false } %>
+  </div>
+</div>

@@ -24,3 +24,34 @@ showDividendHistory = ->
     $("table#dividendHistory").replaceWith "<p>An error has occurred.</p>"
 
 $('.positions.show').ready showDividendHistory
+
+$ ->
+  $("#check_symbol").autocomplete
+    source: (request, response) ->
+      YAHOO = window.YAHOO = Finance:
+        SymbolSuggest: {}
+      $.ajax
+        type: "GET"
+        url: "http://autoc.finance.yahoo.com/autoc"
+        dataType: "jsonp"
+        jsonp: "callback"
+        jsonpCallback: "YAHOO.Finance.SymbolSuggest.ssCallback"
+        data:
+          query: request.term
+
+        cache: true
+
+      YAHOO.Finance.SymbolSuggest.ssCallback = (data) ->
+        response $.map(data.ResultSet.Result, (item) ->
+          label: item.symbol + " " + item.name
+          value: item.symbol
+        )
+        return
+
+      return
+
+    minLength: 1
+    select: (event, ui) ->
+      $("#check_symbol").val ui.item.symbol
+      return
+  return
