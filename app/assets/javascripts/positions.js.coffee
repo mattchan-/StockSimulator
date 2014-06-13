@@ -23,7 +23,7 @@ showDividendHistory = ->
   else
     $("table#dividendHistory").replaceWith "<p>An error has occurred.</p>"
 
-$('.positions.show').ready showDividendHistory
+
 
 $ ->
   $("#check_symbol").autocomplete

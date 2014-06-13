@@ -3,25 +3,24 @@
 <%= link_to @position.portfolio.name, portfolio_path(@position.portfolio) %>
 
 <div class="row">
-  <div class="col-md-3">
-    <%= @position.symbol %>
+  <div class="col-md-6">
+    <% if !@position.dividend_list.empty? %>
+      <table id="dividendHistory">
+        <tr>
+          <th>Date</th>
+          <th>Dividend</th>
+        </tr>
+        <% @position.dividend_list.each_with_index do |d| %>
+          <tr>
+            <td><%= d.ex_dividend_date %></td>
+            <td><%= number_to_currency d.dividends %></td>
+          </tr>
+        <% end %>
+      </table>
+    <% else %>
+      <p>
+        No Dividend History for <%= @position.symbol %>
+      </p>
+    <% end %>
   </div>
-  <div class="col-md-3">
-    Shares <%= @position.shares %>
-  </div>
-  <div class="col-md-3">
-    <%= @position.position_cost %>
-  </div>
-  <div class="col-md-3">
-    <%= @position.date_acquired %>
-  </div>
-</div>
-
-<div class="row-2">
-  <table id="dividendHistory">
-    <tr>
-      <th>Date</th>
-      <th>Dividend</th>
-    </tr>
-  </table>  
 </div>

@@ -54,6 +54,10 @@ class Position < ActiveRecord::Base
     errors.add(:symbol, "must be a valid Yahoo Finance ticker") unless Company.check(self[:symbol])
   end
 
+  def dividend_list
+    Company.find_by(symbol: self[:symbol]).dividends.where("ex_dividend_date > ?", self[:date_acquired])
+  end
+
   private
     def upcase_symbol
       self[:symbol].upcase!

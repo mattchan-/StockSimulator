@@ -15,6 +15,8 @@ class Company < ActiveRecord::Base
   validates :symbol, presence: true, uniqueness: true
   validates :name, presence: true
 
+  has_many :dividends, dependent: :destroy
+
   # Checks if symbol exists in Company Database
   # If it does not exist, add to Company Database if it is a valid Yahoo Ticker Symbol
   def self.check(symbol)
