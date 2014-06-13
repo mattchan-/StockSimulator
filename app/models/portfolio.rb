@@ -6,10 +6,14 @@
 #  name       :string(255)
 #  created_at :datetime
 #  updated_at :datetime
+#  cash       :float
 #
 
 class Portfolio < ActiveRecord::Base
+  before_validation :set_cash, on: :create
+
   validates :name, presence: true
+  validates :cash, presence: true, numericality: { greater_than_or_equal_to: 0 }
 
   has_many :positions, dependent: :destroy
   accepts_nested_attributes_for :positions
@@ -57,4 +61,9 @@ class Portfolio < ActiveRecord::Base
       0
     end
   end
+
+  private
+    def set_cash
+      self[:cash] = 0 unless self[:cash]
+    end
 end

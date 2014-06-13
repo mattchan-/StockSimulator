@@ -15,7 +15,7 @@ class YQL
     return false unless response.success?
     return false if response["query"]["results"].nil?
     return false if response["query"]["results"]["quote"]["ErrorIndicationreturnedforsymbolchangedinvalid"] != nil
-    return response["query"]["results"]["quote"].except "ErrorIndicationreturnedforsymbolchangedinvalid"
+    return response["query"]["results"]["quote"]
   end
 
   # symbols should be an array of symbols
