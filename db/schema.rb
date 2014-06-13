@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140613043118) do
+ActiveRecord::Schema.define(version: 20140613095039) do
 
   create_table "companies", force: true do |t|
     t.string   "name"
@@ -26,7 +26,7 @@ ActiveRecord::Schema.define(version: 20140613043118) do
   create_table "dividends", force: true do |t|
     t.string   "symbol"
     t.float    "dividends"
-    t.float    "ex_dividend_date"
+    t.date     "ex_dividend_date"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

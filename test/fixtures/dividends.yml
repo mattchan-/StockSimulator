@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: dividends
+#
+#  id               :integer          not null, primary key
+#  symbol           :string(255)
+#  dividends        :float
+#  ex_dividend_date :float
+#  created_at       :datetime
+#  updated_at       :datetime
+#
+
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:

@@ -7,7 +7,7 @@ class YQL
   default_params format: "json", env: "store://datatables.org/alltableswithkeys", callback: ''
   format :json
 
-  # returns nil if symbol 
+  # returns a hash of stock data unless an error occurs 
   def self.quote(symbol)
     query = "SELECT ErrorIndicationreturnedforsymbolchangedinvalid, Symbol, Name, LastTradePriceOnly, Change, EarningsShare FROM yahoo.finance.quotes WHERE symbol in ('#{symbol}')"
     response = get '/v1/public/yql', query: { q: query }
@@ -18,7 +18,7 @@ class YQL
     return response["query"]["results"]["quote"]
   end
 
-  # symbols should be an array of symbols
+  # symbols is an array of symbols
   def self.quotes(symbols)
     symbols = symbols.reject(&:nil?).join("','")
     query = "SELECT ErrorIndicationreturnedforsymbolchangedinvalid, Symbol, Name, LastTradePriceOnly, Change, EarningsShare FROM yahoo.finance.quotes WHERE symbol in ('#{symbols}')"
@@ -28,7 +28,12 @@ class YQL
     return response["query"]["results"]["quote"]
   end
 
-  def dividends(symbol, date)
-    query = "use 'store://bg2cgClQyQC1c5gJE3UXUn' as yahoo.finance.dividendhistory; select * from yahoo.finance.dividendhistory where symbol = '" + symbol + "' and startDate = '" + date.strftime("%Y-%m-%d") + "' and endDate = '" + Date.today.strftime("%Y-%m-%d") + "'"
+  # 
+  def self.dividends(symbol)
+    query = "use 'store://bg2cgClQyQC1c5gJE3UXUn' as yahoo.finance.dividendhistory; select * from yahoo.finance.dividendhistory where symbol = '" + symbol + "' and startDate = '1901-01-01' and endDate = '" + Date.today.strftime("%Y-%m-%d") + "'"
+    response = get '/v1/public/yql', query: { q: query }
+    return false unless response.success?
+    return false if response["query"]["results"].nil?
+    return response["query"]["results"]["quote"]
   end
 end
