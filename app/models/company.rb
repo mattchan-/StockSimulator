@@ -7,6 +7,7 @@
 #  symbol     :string(255)
 #  created_at :datetime
 #  updated_at :datetime
+#  price      :float
 #
 
 class Company < ActiveRecord::Base
@@ -14,49 +15,31 @@ class Company < ActiveRecord::Base
   validates :symbol, presence: true, uniqueness: true
   validates :name, presence: true
 
-  # HTTParty
-  include HTTParty
-  base_uri 'query.yahooapis.com'
-  default_params format: "json", env: "store://datatables.org/alltableswithkeys", callback: ''
-  format :json
-
-  debug_output $stderr
-
   # Checks if symbol exists in Company Database
   # If it does not exist, add to Company Database if it is a valid Yahoo Ticker Symbol
   def self.check(symbol)
-    if Company.find_by(symbol: symbol)
-      return true
-    else
-      query = "SELECT ErrorIndicationreturnedforsymbolchangedinvalid, Symbol, Name FROM yahoo.finance.quotes WHERE symbol in ('#{symbol}')"
-      response = get '/v1/public/yql', query: { q: query }
-      if response.success?
-        response["query"]["results"].nil? ? (return false) : response = response["query"]["results"]["quote"]
-        if response["ErrorIndicationreturnedforsymbolchangedinvalid"] == nil
-          Company.create symbol: symbol, name: response["Name"]
-          return true
-        else
-          return false
-        end
-      else
-        return false
-      end
-    end
+    return true if Company.find_by(symbol: symbol)
+    data = YQL.check(symbol)
+    Company.create symbol: symbol, name: data["Name"], price: data["LastTradePriceOnly"] if data
   end
 
-  def get_price
-    query = "SELECT ErrorIndicationreturnedforsymbolchangedinvalid, LastTradePriceOnly FROM yahoo.finance.quotes WHERE symbol in ('#{symbol}')"
-    response = self.class.get '/v1/public/yql', query: { q: query }
-    if response.success?
-      response["query"]["results"].nil? ? (return nil) : response = response["query"]["results"]["quote"]
-      if response["ErrorIndicationreturnedforsymbolchangedinvalid"] == nil
-        return response["LastTradePriceOnly"].to_f
-      else
-        return nil
+  def update_price
+    data = YQL.check(symbol)
+    update_attributes price: data["LastTradePriceOnly"] if data
+  end
+
+  def self.update_all_prices
+    Company.pluck(:symbol).in_groups_of(400) do |group|
+      data = YQL.quotes(group)
+      return false unless data
+      data.each_with_index do |d, index|
+        Company.find_by(symbol: group[index]).update_attributes(
+          price: d["LastTradePriceOnly"],
+          symbol: d["Symbol"]
+        )
       end
-    else
-      return nil
     end
+    true
   end
 
   private
