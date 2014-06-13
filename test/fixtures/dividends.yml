@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  symbol: MyString
+  dividends: 1.5
+  ex_dividend_date: 1.5
+
+two:
+  symbol: MyString
+  dividends: 1.5
+  ex_dividend_date: 1.5

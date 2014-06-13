@@ -10,6 +10,8 @@
 #  price      :float
 #
 
+
+
 class Company < ActiveRecord::Base
   before_create :upcase_symbol, :update_price
   validates :symbol, presence: true, uniqueness: true
