@@ -20,7 +20,7 @@ end
 companies2 = JSON.parse(IO.read("company_list2.json"))
 
 companies2.each do |i|
-  if Company.find_by_symbol(i["Ticker"]).nil?
+  if Company.find_by(symbol: i["Ticker"]).nil?
     Company.create(name: i["Name"], symbol: i["Ticker"])
   end
 end

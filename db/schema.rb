@@ -47,8 +47,8 @@ ActiveRecord::Schema.define(version: 20140613101339) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.date     "date_acquired"
-    t.float    "price"
     t.float    "cumulative_dividends"
+    t.float    "price"
   end
 
   add_index "positions", ["portfolio_id"], name: "index_positions_on_portfolio_id"

@@ -1,7 +1,7 @@
 <tr class="records">
   <td><%= position.localized.date_acquired %></td>
   <td><%= link_to position.symbol, position_path(position.id.to_i) %></td>
-  <td><%= Company.find_by_symbol(position.symbol).name %></td>
+  <td><%= Company.find_by(symbol: position.symbol).name %></td>
 
   <td><%= position.shares %></td>
   <td><%= number_to_currency position.cost_per_share %></td>

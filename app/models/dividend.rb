@@ -5,9 +5,10 @@
 #  id               :integer          not null, primary key
 #  symbol           :string(255)
 #  dividends        :float
-#  ex_dividend_date :float
+#  ex_dividend_date :date
 #  created_at       :datetime
 #  updated_at       :datetime
+#  company_id       :integer
 #
 
 class Dividend < ActiveRecord::Base
