@@ -38,6 +38,11 @@ class PositionsController < ApplicationController
   end
 
   def destroy
+    @position = Position.find(params[:id])
+    @portfolio = @position.portfolio
+
+    @position.destroy
+    redirect_to portfolio_path @portfolio
   end
 
   private

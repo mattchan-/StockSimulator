@@ -1,6 +1,10 @@
 <% provide(:title, @position.symbol) %>
 
-<%= link_to @position.portfolio.name, portfolio_path(@position.portfolio) %>
+<div class="row">
+  <div class="col-md-6">
+    <%= link_to @position.portfolio.name, portfolio_path(@position.portfolio) %> | <%= link_to 'Delete', position_path, method: :delete, data: { confirm: "Are you sure you want to delete this position?" } %>
+  </div>
+</div>
 
 <div class="row">
   <div class="col-md-6">
