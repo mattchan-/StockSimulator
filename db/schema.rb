@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140613101339) do
+ActiveRecord::Schema.define(version: 20140821231525) do
 
   create_table "companies", force: true do |t|
     t.string   "name"
@@ -22,6 +22,18 @@ ActiveRecord::Schema.define(version: 20140613101339) do
   end
 
   add_index "companies", ["symbol"], name: "index_companies_on_symbol", unique: true
+
+  create_table "company_data", force: true do |t|
+    t.string   "symbol"
+    t.string   "category"
+    t.date     "date"
+    t.float    "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "company_data", ["date"], name: "index_company_data_on_date"
+  add_index "company_data", ["symbol"], name: "index_company_data_on_symbol"
 
   create_table "dividends", force: true do |t|
     t.string   "symbol"

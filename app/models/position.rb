@@ -2,18 +2,22 @@
 #
 # Table name: positions
 #
-#  id             :integer          not null, primary key
-#  portfolio_id   :integer
-#  symbol         :string(255)
-#  shares         :integer
-#  cost_per_share :float
-#  created_at     :datetime
-#  updated_at     :datetime
-#  date_acquired  :date
+#  id                   :integer          not null, primary key
+#  portfolio_id         :integer
+#  symbol               :string(255)
+#  shares               :integer
+#  cost_per_share       :float
+#  created_at           :datetime
+#  updated_at           :datetime
+#  date_acquired        :date
+#  cumulative_dividends :float
+#  price                :float
 #
 
 class Position < ActiveRecord::Base
   before_create :upcase_symbol
+
+  after_create :get_price, :get_cumulative_dividends
 
   validate :check_valid_symbol, on: :create
 

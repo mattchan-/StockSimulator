@@ -1,0 +1,26 @@
+# == Schema Information
+#
+# Table name: company_data
+#
+#  id         :integer          not null, primary key
+#  symbol     :string(255)
+#  category   :string(255)
+#  date       :date
+#  value      :float
+#  created_at :datetime
+#  updated_at :datetime
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  symbol: MyString
+  type: 
+  date: 2014-08-21
+  value: 1.5
+
+two:
+  symbol: MyString
+  type: 
+  date: 2014-08-21
+  value: 1.5

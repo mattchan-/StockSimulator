@@ -1,30 +1,15 @@
 <% provide(:title, @position.symbol) %>
 
 <div class="row">
-  <div class="col-md-6">
-    <%= link_to @position.portfolio.name, portfolio_path(@position.portfolio) %> | <%= link_to 'Delete', position_path, method: :delete, data: { confirm: "Are you sure you want to delete this position?" } %>
+  <div class="col-xs-12">
+    <h1><%= @position.symbol %></h1>
   </div>
 </div>
 
 <div class="row">
-  <div class="col-md-6">
-    <% if !@position.dividend_list.empty? %>
-      <table id="dividendHistory">
-        <tr>
-          <th>Date</th>
-          <th>Dividend</th>
-        </tr>
-        <% @position.dividend_list.each_with_index do |d| %>
-          <tr>
-            <td><%= d.ex_dividend_date %></td>
-            <td><%= number_to_currency d.dividends %></td>
-          </tr>
-        <% end %>
-      </table>
-    <% else %>
-      <p>
-        No Dividend History for <%= @position.symbol %>
-      </p>
-    <% end %>
+  <div class="col-xs-12">
+    <div class="legend"></div>
+    <div class="chart"></div>
   </div>
 </div>
+<input name="id" type="hidden" value=<%= @position.id %>>

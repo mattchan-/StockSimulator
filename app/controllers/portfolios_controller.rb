@@ -19,7 +19,7 @@ class PortfoliosController < ApplicationController
 
   def update
     @portfolio = Portfolio.find(params[:id])
-    @portfolio.update_attributes(portfolio_params)
+    @portfolio.update(portfolio_params)
     flash.now[:success] = "Portfolio Name Updated"
     respond_to do |format|
       format.html { redirect_to @portfolio }

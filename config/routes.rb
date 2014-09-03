@@ -4,7 +4,11 @@ Rails.application.routes.draw do
   resources :portfolios, only: [:new, :create, :edit, :update, :index, :show, :destroy] do
   end
 
-  resources :positions, only: [:edit, :show, :update, :destroy]
+  resources :positions, only: [:edit, :show, :update, :destroy] do
+    member do
+      get 'monthly_graph_data'
+    end
+  end
 
   post '/portfolios/:portfolio_id/create_position' => 'positions#create', as: 'positions'
 

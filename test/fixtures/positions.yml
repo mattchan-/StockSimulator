@@ -2,14 +2,16 @@
 #
 # Table name: positions
 #
-#  id             :integer          not null, primary key
-#  portfolio_id   :integer
-#  symbol         :string(255)
-#  shares         :integer
-#  cost_per_share :float
-#  created_at     :datetime
-#  updated_at     :datetime
-#  date_acquired  :date
+#  id                   :integer          not null, primary key
+#  portfolio_id         :integer
+#  symbol               :string(255)
+#  shares               :integer
+#  cost_per_share       :float
+#  created_at           :datetime
+#  updated_at           :datetime
+#  date_acquired        :date
+#  cumulative_dividends :float
+#  price                :float
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

@@ -26,7 +26,7 @@ class Dividend < ActiveRecord::Base
     data = [data] unless data.kind_of?(Array)
     data.each do |d|
       record = Dividend.where(symbol: symbol).find_by(ex_dividend_date: d["Date"])
-      record ? record.update_attributes(dividends: d["Dividends"], company_id: company_id) : Dividend.create(symbol: symbol, dividends: d["Dividends"], ex_dividend_date: d["Date"], company_id: company_id)
+      record ? record.update(dividends: d["Dividends"], company_id: company_id) : Dividend.create(symbol: symbol, dividends: d["Dividends"], ex_dividend_date: d["Date"], company_id: company_id)
     end
   end
 end
