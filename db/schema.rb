@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140821231525) do
+ActiveRecord::Schema.define(version: 20140903205409) do
 
   create_table "companies", force: true do |t|
     t.string   "name"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20140821231525) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.float    "price"
+    t.date     "last_price_update"
   end
 
   add_index "companies", ["symbol"], name: "index_companies_on_symbol", unique: true

@@ -47,28 +47,6 @@ class PositionsController < ApplicationController
 
   def monthly_graph_data
     @position = Position.find(params[:id])
-    # startMonth = Position.find(141).date_acquired.month
-    # startYear = Position.find(141).date_acquired.year
-    # endMonth = Date.today.month
-    # endYear = Date.today.year
-
-    # month = startMonth
-    # a = []
-    # for year in (startYear..endYear)
-    #   if year == endYear
-    #     while month <= endMonth
-    #       a.push(CompanyData.select("id", "date", "value").where("symbol = ? AND category = ? AND strftime('%m', date) + 0 = ? AND strftime('%Y', date) + 0 = ?", @position.symbol, "close", month, year).order("date ASC").first)
-    #       month += 1
-    #     end
-    #   else
-    #     while month <= 12
-    #       a.push(CompanyData.select("id", "date", "value").where("symbol = ? AND category = ? AND strftime('%m', date) + 0 = ? AND strftime('%Y', date) + 0 = ?", @position.symbol, "close", month, year).order("date ASC").first)
-    #       month += 1
-    #     end
-    #     month = 1
-    #   end
-    # end
-    # @data = a
     raw_data = CompanyData.select("date, value, category").where("symbol = ? AND category IN (?, ?) AND date > ?", @position.symbol, "close", "dividend", @position.date_acquired).order("date ASC")
 
     month = raw_data.first.date.month
@@ -76,13 +54,14 @@ class PositionsController < ApplicationController
     last_div = 0
     share_factor = 1
     @data = []
-    raw_data.each do |d|
+    spacing = (raw_data.length.to_f / 1000).ceil
+    raw_data.each_with_index do |d, idx|
       if d.category == "dividend"
         div_adjustment += d.value
         share_factor *= (1 + d.value/@data.last[:value])
-      elsif d.date.month == month
+      elsif idx % spacing == 0 # d.date.month == month
         @data.push({ date: d.date, value: d.value, plus_div: d.value + div_adjustment, div_reinvested: d.value * share_factor })
-        month == 12 ? month = 1 : month += 1
+        # month == 12 ? month = 1 : month += 1
       end
     end
     respond_to do |format|

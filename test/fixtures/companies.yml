@@ -2,12 +2,13 @@
 #
 # Table name: companies
 #
-#  id         :integer          not null, primary key
-#  name       :string(255)
-#  symbol     :string(255)
-#  created_at :datetime
-#  updated_at :datetime
-#  price      :float
+#  id                :integer          not null, primary key
+#  name              :string(255)
+#  symbol            :string(255)
+#  created_at        :datetime
+#  updated_at        :datetime
+#  price             :float
+#  last_price_update :date
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html

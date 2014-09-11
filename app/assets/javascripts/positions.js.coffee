@@ -4,7 +4,7 @@
 
 months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"]
 formattedDate = (date) ->
-  "#{months[date.getMonth()]} #{date.getDay()}, #{date.getFullYear()}"
+  "#{months[date.getMonth()]} #{date.getDate()}, #{date.getFullYear()}"
 
 $ ->
   $("#check_symbol").autocomplete
@@ -37,7 +37,7 @@ $ ->
       return
   return
 
-$ ->
+$('.positions.show').ready ->
   # define chart size
   margin = { top: 20, right: 80, bottom: 30, left: 50 }
   width = 960 - margin.left - margin.right
@@ -92,7 +92,11 @@ $ ->
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
       .call(zoom);
 
-  container = svg.append("g")
+  container = svg.append("svg")
+      .attr("class", "data_container")
+      .attr("height", height)
+      .attr("width", width)
+      .attr("viewBox", "0 0 "+width+" "+height)
 
   legend = $('.legend')
   updateLegend = (data) ->
@@ -162,14 +166,48 @@ $ ->
       ymin = d3.min(data, (d) -> d.value)
       ymax = d3.max(data, (d) -> d.div_reinvested)
 
-      x.domain(d3.extent(data, (d) -> d.date))
+      xmin = d3.min(data, (d) -> d.date)
+      xmax = d3.max(data, (d) -> d.date)
+      x.domain([xmin, xmax])
       y.domain([ymin - ymax * .1, ymax * 1.1])
 
+      downx = Math.NaN
+      downscalex = undefined
+
       # show x axis
-      container.append("g")
+      xg = svg.append("g")
           .attr("class", "x axis")
           .attr("transform", "translate(0," + height + ")")
           .call(xAxis)
+          .on "mousedown", (d) ->
+            p = d3.mouse(svg[0][0])
+            downx = x.invert(p[0])
+            downscalex = x
+
+      d3.select("body").on("mousemove", (d) ->
+        unless isNaN(downx)
+          p = d3.mouse(svg[0][0])
+          rupx = p[0]
+          unless rupx < 0
+            scaling = width * (downx - downscalex.domain()[0]) / rupx
+            x.domain [
+              downscalex.domain()[0]
+              Math.min(scaling + +downscalex.domain()[0], xmax)
+            ]
+          draw()
+        return
+      ).on "mouseup", (d) ->
+        downx = Math.NaN
+        return
+
+      # xAxis.append("svg:line")
+      #     .attr("x1", 0).attr("x2", 0)
+      #     .attr("y1", 0).attr("y2", 30)
+      #     .attr("class", "left_bound")
+      # xAxis.append("svg:line")
+      #     .attr("x1", width).attr("x2", width)
+      #     .attr("y1", 0).attr("y2", 30)
+      #     .attr("class", "right_bound")
 
       # show left y axis
       svg.append("g")
@@ -188,21 +226,30 @@ $ ->
           .attr("transform", "translate(" + width + ",0)")
           .call(yAxisRight.tickFormat((d) -> d3.round(d/data[0].value * 100, 0) + "%"))
 
-      #draw no_div line
-      container.append("path")
-          .attr("class", "line line0")
-          .attr("d", line_y0(data))
+      draw = ->
+        d3.select('.line0').remove()
+        d3.select('.line1').remove()
+        d3.select('.line2').remove()
+        #draw no_div line
 
-      #draw w_div line
-      container.append("path")
-          .attr("class", "line line1")
-          .attr("d", line_y1(data))
+        container.append("path")
+            .attr("class", "line line0")
+            .attr("d", line_y0(data))
 
-      container.append("path")
-          .attr("class", "line line2")
-          .attr("d", line_y2(data))
+        #draw w_div line
+        container.append("path")
+            .attr("class", "line line1")
+            .attr("d", line_y1(data))
 
-      console.log svg[0][0]
+        container.append("path")
+            .attr("class", "line line2")
+            .attr("d", line_y2(data))
+
+        xg.call(xAxis)
+        d3.selectAll("g.x g.tick")
+            .style("cursor", "ew-resize")
+
+      draw()
 
       focus.addMarker(container, "focus0")
       focus.addMarker(container, "focus1")

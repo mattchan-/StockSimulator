@@ -6,7 +6,7 @@
   <td><%= position.shares %></td>
   <td><%= number_to_currency position.cost_per_share %></td>
   <td><%= number_to_currency position.position_cost %></td>
-  
+
   <td><%= number_to_currency position.price %></td>
   <td><%= number_to_currency position.market_value %></td>
   <td class="<%= updown(position.unrealized_gains) %>"><%= number_to_currency position.unrealized_gains %></td>

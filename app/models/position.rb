@@ -36,7 +36,7 @@ class Position < ActiveRecord::Base
   end
 
   def get_cumulative_dividends
-    update cumulative_dividends: (dividend_list.pluck(:dividends).reduce(0, :+) * self[:shares])
+    update cumulative_dividends: (dividend_list.pluck(:value).reduce(0, :+) * self[:shares])
   end
 
   def position_cost
@@ -64,7 +64,7 @@ class Position < ActiveRecord::Base
   end
 
   def dividend_list
-    Company.find_by(symbol: self[:symbol]).dividends.where("ex_dividend_date > ?", self[:date_acquired])
+    CompanyData.where("symbol = ? AND category = ? AND date > ?", self[:symbol], "dividend", self[:date_acquired])
   end
 
   private

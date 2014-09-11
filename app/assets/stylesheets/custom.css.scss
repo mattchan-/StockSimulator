@@ -1,4 +1,5 @@
 @import "bootstrap";
+$steelblue: #4682B4;
 
 /* universal */
 
@@ -13,7 +14,7 @@ body {
 section {
   overflow: auto;
 }
- 
+
 pre {
   border-radius: 0px;
 }
@@ -56,4 +57,8 @@ input {
   left: 0; right: 0;
   top: 0; bottom: 0;
   margin: auto auto;
+}
+
+.right_bound, .left_bound {
+  stroke: $steelblue;
 }

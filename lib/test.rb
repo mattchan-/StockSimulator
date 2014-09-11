@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby
+!/usr/bin/env ruby
 
 require "csv.rb"
 require "date.rb"
@@ -63,7 +63,7 @@ Position.pluck(:symbol).uniq.each do |a|
   startTime = Time.now
   initCount = CompanyData.where(symbol: a).count
 
-  d = getAllData(a)
+  d = YQL.getAllData(a)
   if !d
     puts "Data for #{a} not found"
   else

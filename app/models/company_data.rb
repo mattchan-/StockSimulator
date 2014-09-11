@@ -4,7 +4,7 @@
 #
 #  id         :integer          not null, primary key
 #  symbol     :string(255)
-#  type       :string(255)
+#  category   :string(255)
 #  date       :date
 #  value      :float
 #  created_at :datetime
